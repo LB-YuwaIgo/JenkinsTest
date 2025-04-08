@@ -40,12 +40,7 @@ namespace Build
             Build(BuildTarget.StandaloneWindows64, Path.Combine(Directory.GetCurrentDirectory(), "Build/Windows/Hoge.exe"));
         }
 
-        /// <summary>
-        /// ビルド
-        /// </summary>
-        /// <param name="buildTarget">ターゲットPlatform</param>
-        /// <param name="buildPath">ビルドパス</param>
-        private static void Build(BuildTarget buildTarget, string buildPath)
+        private static void BuildWindowsWithOption()
         {
             var args = System.Environment.GetCommandLineArgs();
             for (int index = 0; index < args.Length; index++)
@@ -60,7 +55,15 @@ namespace Build
                 }
                 Debug.Log($"読み解かれない引数です。 argument : {args[index]}");
             }
+        }
 
+        /// <summary>
+        /// ビルド
+        /// </summary>
+        /// <param name="buildTarget">ターゲットPlatform</param>
+        /// <param name="buildPath">ビルドパス</param>
+        private static void Build(BuildTarget buildTarget, string buildPath)
+        {
             // プラットフォームを切り替える
             EditorUserBuildSettings.SwitchActiveBuildTarget(buildTarget);
 
