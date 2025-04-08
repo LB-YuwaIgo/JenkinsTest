@@ -9,6 +9,8 @@ namespace Build
 {
     public static class SampleBuildScript
     {
+
+
         /// <summary>
         /// Androidビルド
         /// </summary>
@@ -45,6 +47,20 @@ namespace Build
         /// <param name="buildPath">ビルドパス</param>
         private static void Build(BuildTarget buildTarget, string buildPath)
         {
+            var args = System.Environment.GetCommandLineArgs();
+            for (int index = 0; index < args.Length; index++)
+            {
+                if (args[index].Contains("defineSymbols"))
+                {
+                    var defineSymbols = PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.Standalone);
+                    defineSymbols += ";" + args[index + 1];
+                    PlayerSettings.SetScriptingDefineSymbols(NamedBuildTarget.Standalone, defineSymbols);
+                    index++;
+                    continue;
+                }
+                Debug.Log($"読み解かれない引数です。 argument : {args[index]}");
+            }
+
             // プラットフォームを切り替える
             EditorUserBuildSettings.SwitchActiveBuildTarget(buildTarget);
 
